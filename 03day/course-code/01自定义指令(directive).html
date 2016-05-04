@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>01自定义指令(directi)</title>
+</head>
+
+<body ng-app='testApp' ng-controller='demoController'>
+  <!-- 元素 E -->
+  <test-directive this is third attr test-class='第1个值 第二个值 第3个值'>2</test-directive>
+  <!-- 类名 C-->
+  <div class='test-directive'></div>
+  <!-- 注释（comment）M -->
+  <!-- directive: test-directive -->
+  {{name}}======== 我是 controller 暴露出来的
+  <!-- 属性 A-->
+  <div this is second attr test-directive>1</div>
+  <script type=text/ng-template id='tpl'>
+    <ul>
+      <li  class='{{testClass}}'>哈哈</li>
+      <li >哼哼#{{testClass}}</li>
+      <li >呵呵%{{testClass}}</li>
+      <li>{{name}}%%%%% 我是link中的scope暴露出来的 </li>
+    </ul>
+  </script>
+  <script src='../angular-1.5.2/angular.min.js'></script>
+  <script>
+  // 创建自定义指令
+  // 自定义指令时驼峰命名法
+  angular.module('testApp', []).directive('testDirective', [function() {
+    var demo = {
+      restrict: 'ECMA', // 声明自定义指令有效的4中方式
+
+      // 用template模板的标签去替换自定义指令所在的标签(用template/templateUrl中替换原来的标签) 
+      replace: true,
+
+      // 把自定义指令所在标签的innerHTML插入到**模板**中拥有ng-transclude指令的元素的innerHTML位置。
+      // transclude: true,
+
+      // 该属性值下的字符串会最终添加到自定义指定所在标签的innerHTML中  (清空该标签innerHTML中的内容后，然后添加)
+      // template: '<p>哈哈1</p>', 
+
+      // 1.该属性值可以是一个文件路径，同样会将文件中内容添加到自定义指令所在标签的innerHTML中
+      // 2.该属性值也可以是一个script 标签的id，也会将script中的内容添加到自定义指令所在标签的innerHTML中
+      // templateUrl: './01testTemplate',
+      templateUrl: 'tpl',
+
+      // 获取自定义指令所在的标签属性值
+      scope: {
+        // test: '@testClass',
+        // 简写形式  即   属性名和属性值一样
+        testClass: '@'
+      },
+      link: function(scope, ele, attr) {
+        // 暴露数据到模板中
+        scope.name = "嗯额";
+        // 获取自定义指令所在标签jqlite对象
+         console.log(ele);
+
+         // 获取自定义指令所在标签的属性 而不是 template中的属性
+        console.log(attr);
+
+      }
+    };
+    return demo;
+  }]).controller('demoController', ['$scope', function($scope) {
+    $scope.name = 'hengheneg';
+  }]);
+  </script>
+</body>
+
+</html>

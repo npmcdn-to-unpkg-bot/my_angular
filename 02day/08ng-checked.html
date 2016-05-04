@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ng-checked</title>
+</head>
+<body ng-app='testApp' ng-controller='testController'>
+  <ul>
+    <!-- ng-model是双向数据绑定  而ng-checked 是单向数据绑定 -->
+    <input type="checkbox" ng-model='isAgreen'>全部
+    <li><input type="checkbox" ng-checked='isAgreen'>香蕉</li>
+    <li><input type="checkbox" ng-checked='isAgreen'>橘子</li>
+    <li><input type="checkbox" ng-checked='isAgreen'>Apple</li>
+    <li><input type="checkbox" ng-checked='isAgreen'>orange</li>
+    <li><input type="checkbox" ng-checked='isAgreen'>pear</li>
+    <li><input type="checkbox" ng-checked='isAgreen'>watermelon</li>
+
+  </ul>
+  <script src="../angular-1.5.2/angular.min.js"></script>
+  <script>
+    angular.module('testApp',[]).controller('testController',['$scope',function($scope){
+      $scope.isAgreen = false;
+    }]);
+
+  </script>
+</body>
+</html>

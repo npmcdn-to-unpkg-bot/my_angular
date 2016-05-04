@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>用户注册</title>
+  <style>
+  div {
+    margin-bottom: 10px;
+  }
+  </style>
+</head>
+
+<body>
+  <section ng-app='regApp'>
+    <form ng-controller='regController'>
+      <div>
+        <label for="">用 户 名</label>
+        <input ng-model='username' type="text" placeholder="请输入用户名">
+      </div>
+      <div>
+        <label for="">密　　码</label>
+        <input ng-model='password' type="text" placeholder="请输入密码">
+      </div>
+      <div>
+        <label for="">确认密码</label>
+        <input ng-model='confirmPwd' type="text" placeholder="请确认密码">
+      </div>
+      <div>同意条款
+        <input ng-model='isAgree' type="checkbox">
+        <span>{{msg}}</span>
+      </div>
+      <input ng-click='register()' type="button" value='注册'>
+    </form>
+  </section>
+  <script src='../angular-1.5.2/angular.js'></script>
+  <script>
+  // ----------------------model start------------------------
+  function User(username, password) {
+    this.username = username;
+    this.password = password;
+  }
+
+  User.prototype.save = function() {
+    var _ = this;
+
+    // 先查询用户名是否存在
+    var str = localStorage.getItem('userInfo');
+
+    // 将字符串转换成对象 存储起来
+    var user = JSON.parse(str || '[]'); // 得到的是数组
+
+    // ========================================================
+    /* 说明： 使用forEach 来遍历数组时 需要定义全局变量作为判断条件结束save的执行*/
+    // var flag = false;
+    // user.forEach(function(item, index) {
+    //   if (_.username == item.username) {
+    //     flag = true;
+    //   }
+    // });
+    // // 当用户名已存在时，结束代码的执行
+    // if (flag) {
+    //   return false;
+    // }
+    // ========================================================
+
+    // 使用some 来操作数组可以 解决上述问题 
+    // some可以遍历 后得到的是一个 boolean值
+    var result = user.some(function(item, index) {
+      return _.username == item.username;
+    });
+
+    // 当 找到 已存在的用户名，结束执行
+    if (result) {
+      return false;
+    }
+ 
+    user.push({
+      username: _.username,
+      password: _.password
+    });
+
+    localStorage.setItem('userInfo', JSON.stringify(user));
+    return true;
+  }
+
+  // ----------------------model end--------------------------
+
+
+
+  // 创建模块
+  var app = angular.module('regApp', []);
+
+  // ----------------------controller start--------------------
+  // 创建控制器
+  app.controller('regController', ($scope) => {
+    // 进行数据模型的初始化
+    $scope.username = '';
+    $scope.password = '';
+    $scope.confirmPwd = '';
+    $scope.isAgree = true;
+    $scope.msg = '';
+
+    $scope.register = function() {
+      if (!$scope.username) {
+        $scope.msg = '用户名不能为空';
+        return;
+      }
+
+
+      var user = new User($scope.username, $scope.password);
+      var result = user.save();
+      if (result) {
+        $scope.msg = '注册成功';
+      } else {
+        $scope.msg = '用户名已存在';
+      }
+    }
+
+    // 监视 数据模型中的数据变化
+    $scope.$watch('username', function(now, old) {
+      // 监视用户名的改变
+      if (now == old) return;
+
+      if (!now) {
+        $scope.msg = '用户名不能为空';
+        return;
+      }
+
+      $scope.msg = '';
+    });
+
+    $scope.$watch('password', function() {
+      // 监视密码的改变
+    });
+
+
+  });
+  // ----------------------controller end--------------------------
+  </script>
+</body>
+
+</html>

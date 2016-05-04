@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ng-switch</title>
+  <style>
+  .ng-cloak {
+    display: none;
+  }
+  </style>
+</head>
+
+<body ng-app='testApp' ng-controller='testController'>
+  <input type="text" ng-model='name'>
+  <ul ng-switch on='name'>
+    <!-- ng-cloak 解决html渲染时屏幕闪烁的问题 -->
+    <li class='ng-cloak' ng-switch-when='哈哈'>哈哈</li>
+    <li class='ng-cloak' ng-switch-when='呵呵'>呵呵</li>
+    <li class='ng-cloak' ng-switch-when='哼哼'>哼哼</li>
+    <li class='ng-cloak' ng-switch-when='嗯嗯'>嗯嗯</li>
+    <li class='ng-cloak' ng-switch-when='额额'>额额</li>
+  </ul>
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+  var app = angular.module('testApp', []);
+  app.controller('testController', ['$scope', function($scope) {
+    $scope.name = '嗯嗯';
+  }]);
+  </script>
+</body>
+
+</html>

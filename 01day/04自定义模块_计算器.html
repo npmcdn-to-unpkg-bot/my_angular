@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>计算器—模块化版本</title>
+</head>
+<div ng-app='myApp' ng-controller='testController'>
+  <input type="text" ng-model='name'>
+  <p>{{name}}</p>
+</div>
+
+<body>
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+    // 创建一个模块
+    // 固定格式 第一个参数是 `模块名`,第二个参数是一个`数组`,表示依赖的 `模块名`
+    // 如果不依赖其他模块，必须填一个`空`的数组)
+    var app = angular.module('myApp',[]);
+
+    // 创建一个控制器  (控制器中 $scope 不能用其他的 变量名 代替)
+    app.controller('testController',($scope)=>{
+      $scope.name='small ming';
+    });
+
+
+  </script>
+</body>
+
+</html>

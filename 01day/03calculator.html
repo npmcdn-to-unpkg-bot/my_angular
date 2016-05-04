@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>caculator</title>
+</head>
+<body>
+  <div ng-app>
+    <input ng-model='num1' type="text">
+    <span>-</span>
+    <input ng-model='num2' type="text">
+    <button ng-click='result=(num1-num2)'>减</button>
+    <span>{{result}}</span>
+  </div>
+  <script src="angular-1.5.2/angular.js"></script>
+</body>
+</html>

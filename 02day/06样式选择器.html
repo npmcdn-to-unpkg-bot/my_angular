@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>06样式选择器</title>
+  <style>
+    .red {
+      background-color: red;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+  </style>
+</head>
+<body>
+  <ul ng-app='testApp' ng-controller='testController'>
+    <!-- 指定item.score -->
+    <!-- <li ng-repeat='item in data' ng-class="{'80': 'red','81':'green'}[item.score]">
+      name: {{item.name}}, score: {{item.score}} 
+    </li> -->
+    
+    <!-- 给对象的属性一个布尔值，当其值是true时，该属性会添加到当前的元素上 -->
+    <!-- ng-show=true/false    ng-hide=true/false  显示/隐藏当前元素 实际上是添加了 display : none-->
+    <!-- ng-if=true/false 注释当前的元素  即不会显示该元素 -->
+    <li ng-if=true ng-repeat='item in data' ng-class="{'green': true}">
+      name: {{item.name}}, score: {{item.score}} 
+    </li>
+
+  </ul>
+
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+    
+    var app = angular.module('testApp',[]);
+    app.controller('testController',['$scope',function($scope){
+      var demo = [
+        {name: '呵呵1', score: "80"},
+        {name: '呵呵2', score: "81"},
+        {name: '呵呵3', score: "82"},
+        {name: '呵呵4', score: "83"},
+        {name: '呵呵5', score: "84"}
+      ]
+
+      $scope.data = demo;
+    }]);
+
+    
+
+  </script>
+</body>
+</html>

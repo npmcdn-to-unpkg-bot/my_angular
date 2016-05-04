@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>解决html渲染</title>
+  <style>
+  .ng-cloak {
+    display: none;
+  }
+  </style>
+</head>
+
+<body>
+  <div ng-app='testApp' ng-controller='testController'>
+    <!-- 解决html渲染 ‘闪烁问题’   方式一  -->
+    <!-- 没有使用ng-bind html渲染延时 使用{{ *** }}表达式会出现渲染html闪烁问题-->
+    <p>{{name1}}</p>
+    <!-- 无html渲染问题 -->
+    <p ng-bind='name2'></p>
+    <!-- 方式二 使用 ng-cloak 该方法是以类名的形式存在 在加载时 让元素隐藏-->
+    <p class='ng-cloak'>{{name3}}</p>
+    <!-- 方式三 使用插件 ng-sanitize -->
+    <p ng-bind-html='name4'></p>
+  </div>
+
+
+
+  <script src='../angular-1.5.2/angular.js'></script>
+  <script src='../angular-1.5.2/angular-sanitize.js'></script>
+  <script>
+  angular.module('testApp', ['ngSanitize']).controller('testController', ['$scope', function($scope) {
+    $scope.name1 = '哈哈哈1(会闪烁)';
+    $scope.name2 = '哈哈哈2(ng-bind 不会闪烁，我是用ng-bind解决的)';
+    $scope.name3 = '哈哈哈3(这个也不会闪烁，我是用ng-cloak解决的)';
+    $scope.name4 = '<p>哈哈哈4(这个也不会闪烁,我是用插件解决的)</p>';
+  }]);
+
+
+/*  angular.module('test1App', ['ngSanitize']).controller('testController', ['$scope', function($scope) {
+    $scope.name4 = '哈哈哈4(这个也不会闪烁,我是用插件解决的)';
+  }]);*/
+  </script>
+</body>
+
+</html>

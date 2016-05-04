@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ng-repeat</title>
+</head>
+<body ng-app='testApp' ng-controller='testController'>
+  <div ng-repeat='item in data'>
+    id: {{item.id}},name: {{item.name}}, age: {{item.age}}
+  </div>
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+    angular.module('testApp',[]).controller('testController',['$scope',function($scope){
+      // 构造一个数据源
+      var demo = [
+      {id: 1,name: '哈哈1',age: 11},
+      {id: 2,name: '哈哈2',age: 12},
+      {id: 3,name: '哈哈3',age: 13},
+      {id: 4,name: '哈哈4',age: 14},
+      {id: 5,name: '哈哈5',age: 15},
+      {id: 6,name: '哈哈6',age: 16},
+      {id: 7,name: '哈哈7',age: 17},
+      ];
+
+      $scope.data = demo;
+    }]);
+
+
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>安全的方式创建控制</title>
+</head>
+
+<body>
+  <div ng-app='testApp' ng-controller='testController'>{{name}}</div>
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+  // 使用该方法创建的控制器 可以有效的解决 代码压缩后,形参改变的错误
+  // 通过此方法,controller 中的形参名可以任意
+  angular.module('testApp', []).controller('testController', ['$scope', '$log', function($scope, $log) {
+    $scope.name = '呵呵';
+    $log.log('哈哈');
+  }]);
+  </script>
+</body>
+
+</html>

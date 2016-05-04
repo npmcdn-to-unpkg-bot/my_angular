@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>控制器的创建</title>
+</head>
+
+<!-- 传统的方式 1-->
+ <div ng-app='testApp' ng-controller='testController'>{{name}}</div>
+
+<!-- 传统的方式 2-->
+ <!-- <div ng-app='testApp' ng-controller='testController'>{{name}}</div> -->
+
+<!-- 面向对象的方式 -->
+<!-- <div ng-app='test1App' ng-controller='testController as scope'>{{scope.name}}</div> -->
+
+<body>
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+  // 在1.29版本中 会把全局的function 当作全局变量
+
+
+  // 创建模块及控制器
+  angular.module('testApp', []).controller('testController', ['$scope',function($scope) {
+    $scope.name = '哈哈';
+  }]);
+
+
+  // 面向对象的方式创建控制器
+  // angular.module('test1App',[]).controller('testController',testFn);
+  // function testFn(){
+  //   this.name = '哈哈';
+  // }
+
+  </script>
+</body>
+
+</html>

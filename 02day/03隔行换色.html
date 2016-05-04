@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03隔行换色</title>
+  <style>
+    .red {
+      background-color: red;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+  </style>
+</head>
+<body>
+  <ul ng-app='testApp' ng-controller='testController'>
+    <!--  $even?'red':'green'  使用的是三元表达式    在models中$even 属性 -->  
+    <li ng-repeat='item in data' class="{{$even?'red':'green'}}">
+      name: {{item.name}}, score: {{item.score}} 
+    </li>
+  </ul>
+
+  <script src="../angular-1.5.2/angular.js"></script>
+  <script>
+    
+    var app = angular.module('testApp',[]);
+    app.controller('testController',['$scope',function($scope){
+      var demo = [
+        {name: '呵呵1', score: 80},
+        {name: '呵呵2', score: 81},
+        {name: '呵呵3', score: 82},
+        {name: '呵呵4', score: 83},
+        {name: '呵呵5', score: 84}
+      ]
+
+      $scope.data = demo;
+    }]);
+
+    
+
+  </script>
+</body>
+</html>
